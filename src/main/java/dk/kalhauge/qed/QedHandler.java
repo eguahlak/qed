@@ -49,7 +49,6 @@ public class QedHandler implements HttpHandler {
   
   @Override
   public void handle(HttpExchange exchange) throws IOException {
-    System.out.println("Killroy was here...");
     String resource = exchange.getRequestURI().getPath();
     StringBuilder result = new StringBuilder();
     if ("/qed".equals(resource)) buildScript(exchange, false);
