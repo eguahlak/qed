@@ -1,27 +1,42 @@
 package dk.kalhauge.bean;
 
-import java.util.Collection;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
-public class BeanMap implements BeanItem {
+public class BeanMap {
   private final Object bean;
 
+  private static Method findAccessor(Object data, String name) {
+    name = "get"+name.substring(0, 1).toUpperCase()+name.substring(1);
+    for (Method accessor : data.getClass().getMethods()) 
+        if (accessor.getName().equals(name) && accessor.getParameterCount() == 0) return accessor;
+    throw new RuntimeException("No such accessor");
+    }
+  
   public BeanMap(Object bean) {
     this.bean = bean;
     }
   
-  @Override
-  public BeanItem get(String key) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public String get(String key) {
+    String[] parts = key.split("\\.");
+    return get(bean, 0, parts);
     }
 
-  @Override
-  public int size() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  private String get(Object data, int index, String[] parts) {
+    try {
+      Method accessor = findAccessor(data, parts[index]);
+      Object result = accessor.invoke(data);
+      index++;
+      if (index == parts.length) return result.toString();
+      return get(result, index, parts);
+      }
+    catch (IllegalAccessException | InvocationTargetException e) {
+      return e.getMessage();
+      }
     }
-
-  @Override
-  public Collection<BeanItem> children() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  
+  public String map(String template) {
+    throw new UnsupportedOperationException();
     }
   
   }
