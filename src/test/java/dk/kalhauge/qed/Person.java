@@ -19,6 +19,10 @@ public class Person {
     return firstName+" "+lastName;
     }
 
+  public String getFirstName() {
+    return firstName;
+    }
+
   public Address getAddress() {
     return address;
     }

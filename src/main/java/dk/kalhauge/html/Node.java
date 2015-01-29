@@ -2,13 +2,15 @@ package dk.kalhauge.html;
 
 public abstract class Node {
 
-  public abstract void print(StringBuilder builder);
+  protected abstract void print(StringBuffer buffer, Object bean);
 
+  public abstract void print(StringBuffer buffer);
+  
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
-    print(builder);
-    return builder.toString();
+    StringBuffer buffer = new StringBuffer();
+    print(buffer);
+    return buffer.toString();
     }
-  
+
   }

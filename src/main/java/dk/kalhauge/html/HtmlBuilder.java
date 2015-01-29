@@ -8,10 +8,20 @@ public class HtmlBuilder {
     return html;
     }
   
-  public static Element head(String title) {
-    Element head = new Element("head");
-    head.add(new Element("title", title));
-    return head;
+  public static Element head(String title, Node... nodes) {
+    return new Element("head")
+        .add(new Element("title", title))
+        .add(new Element("script").add(new Attribute("src", "/qed-query")))
+        .add(nodes);
+    }
+  
+  public static Element stylesheet(String href) {
+    return new Element("style")
+        .add(
+            new Attribute("href", href),
+            new Attribute("type", "text/css"),
+            new Attribute("rel", "stylesheet")
+        );
     }
   
   public static Element body(Node... nodes) {
@@ -20,14 +30,31 @@ public class HtmlBuilder {
     return body;
     }
   
-  public static Element headline(int number, String text) {
+  public static Element h(int number, String text) {
     Element headline = new Element("h"+number, text);
     return headline;
     }
   
-  public static Element paragraph(String text) {
+  public static Element p(String text) {
     Element paragraph = new Element("p", text);
     return paragraph;
     }
   
+  public static Element table(Element... rows) {
+    Element table = new Element("table");
+    table.add(new Attribute("border", "1"));
+    table.add(rows);
+    return table;
+    }
+  
+  public static Element row(Element... cells) {
+    Element row = new Element("tr");
+    row.add(cells);
+    return row;
+    }
+  
+  public static Element cell(String text) {
+    return new Element("td", text);
+    }
+
   }

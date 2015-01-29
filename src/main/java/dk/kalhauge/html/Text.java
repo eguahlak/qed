@@ -1,6 +1,6 @@
 package dk.kalhauge.html;
 
-import java.io.PrintWriter;
+import dk.kalhauge.bean.Mapper;
 
 public class Text extends Node {
   private final String value;
@@ -10,8 +10,13 @@ public class Text extends Node {
     }
 
   @Override
-  public void print(StringBuilder builder) {
-    builder.append(value);
+  public void print(StringBuffer buffer) {
+    buffer.append(value);
+    }
+  
+  @Override
+  protected void print(StringBuffer buffer, Object bean) {
+    Mapper.map(buffer, bean, value);
     }
   
   }

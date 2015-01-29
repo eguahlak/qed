@@ -1,12 +1,13 @@
 package dk.kalhauge.html;
 
-import java.io.PrintWriter;
 import java.util.*;
+import static dk.kalhauge.bean.Mapper.*;
 
 public class Element extends Node {
+  private Object bean = null;
   private String name;
-  private List<Attribute> attributes = new ArrayList<>();
-  private List<Node> nodes = new ArrayList<>();
+  private final List<Attribute> attributes = new ArrayList<>();
+  private final List<Node> nodes = new ArrayList<>();
   
   public Element(String name) {
     this.name = name;
@@ -17,6 +18,16 @@ public class Element extends Node {
     nodes.add(new Text(text));
     }
   
+  public Element id(String value) {
+    attributes.add(new Attribute("id", value));
+    return this;
+    }
+  
+  public Element klass(String value) {
+    attributes.add(new Attribute("class", value));
+    return this;
+    }
+  
   public Element add(Node... nodes) {
     for (Node node : nodes) {
       if (node instanceof Attribute) attributes.add((Attribute)node);
@@ -25,18 +36,40 @@ public class Element extends Node {
     return this;
     }
   
+  public Element map(Object bean) {
+    this.bean = bean;
+    return this;
+    }
+
   @Override
-  public void print(StringBuilder builder) {
-    builder.append("<"+name);
-    for (Attribute attribute : attributes) {
-      builder.append(" ");
-      attribute.print(builder);
+  public void print(StringBuffer buffer) {
+    if (bean != null) for (Object data : iterable(Object.class, bean)) print(buffer, data);
+    else {
+      buffer.append("<").append(name);
+      for (Attribute attribute : attributes) {
+        buffer.append(" ");
+        attribute.print(buffer);
+        }
+      buffer.append(">");
+      for (Node node : nodes) {
+        node.print(buffer);
+        }
+      buffer.append("</").append(name).append(">");
       }
-    builder.append(">");
-    for (Node node : nodes) {
-      node.print(builder);
-      }
-    builder.append("</").append(name).append(">");
     }
   
+  @Override
+  protected void print(StringBuffer buffer, Object data) {
+    buffer.append("<").append(name);
+    for (Attribute attribute : attributes) {
+      buffer.append(" ");
+      attribute.print(buffer, data);
+      }
+    buffer.append(">");
+    for (Node node : nodes) {
+      node.print(buffer, data);
+      }
+    buffer.append("</").append(name).append(">");
+    }
+
   }
