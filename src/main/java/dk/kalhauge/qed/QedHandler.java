@@ -1,10 +1,8 @@
 package dk.kalhauge.qed;
 
-import com.sun.net.httpserver.HttpExchange;
 import dk.kalhauge.http.HttpHandlerAdapter;
 import dk.kalhauge.http.Request;
 import dk.kalhauge.http.Response;
-import dk.kalhauge.http.ResponseHttpExchangeAdapter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,14 +37,8 @@ public class QedHandler extends HttpHandlerAdapter {
       result.append("; }\n");
       }
     response.addHeader("Content-Type", "text/javascript; charset=utf8");
-//    Headers headers = exchange.getResponseHeaders();
-//    headers.add("Content-Type", "text/javascript; charset=utf8");
     byte[] buffer = result.toString().getBytes("UTF-8");
     response.write(buffer);
-//    exchange.sendResponseHeaders(200, buffer.length);
-//    try (OutputStream out = exchange.getResponseBody()) {
-//      out.write(buffer);
-//      }
     }
   
   @Override
@@ -58,8 +50,6 @@ public class QedHandler extends HttpHandlerAdapter {
     else {
       String name = resource.substring(5);
       System.out.println(name);
-//      InputStreamReader rin = new InputStreamReader(exchange.getRequestBody());
-//      BufferedReader reqin = new BufferedReader(rin);
       String line = request.read().toString();
 
       System.out.println("  <- "+line);
