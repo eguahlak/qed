@@ -27,10 +27,24 @@ public class QedHandlerTest {
       }});
     
     handler.handle(request, response);
-    
-  
     }
   
+  @Test
+  public void testBuildScriptWithJQuery() throws Exception {
+    final Request request = context.mock(Request.class);
+    final Response response = context.mock(Response.class);
+    final TestFacade facade = new TestFacade();
+    
+    QedHandler handler = new QedHandler(facade);
+    
+    context.checking(new Expectations() {{
+      oneOf(request).getPath(); will(returnValue("/qed-query"));
+      oneOf(response).addHeader("Content-Type", "text/javascript; charset=utf8");
+      oneOf(response).write(with(any(byte[].class)));
+      }});
+    
+    handler.handle(request, response);
+    }
   
   
   
