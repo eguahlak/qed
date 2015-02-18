@@ -49,10 +49,6 @@ public class QedHandler extends HttpHandlerAdapter {
 //      }
     }
   
-  private void buildScript(HttpExchange exchange, boolean jQuery) throws IOException {
-    buildScript(new ResponseHttpExchangeAdapter(exchange), jQuery);
-    }
-  
   @Override
   protected void handle(Request request, Response response) throws IOException {
     String resource = request.getPath();
