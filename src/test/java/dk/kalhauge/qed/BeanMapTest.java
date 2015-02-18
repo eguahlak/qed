@@ -2,7 +2,6 @@ package dk.kalhauge.qed;
 
 import dk.kalhauge.bean.BeanMap;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.core.StringStartsWith.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -12,7 +11,7 @@ import java.util.Date;
 
 public class BeanMapTest {
   private BeanMap map;
-  private static Calendar calendar = GregorianCalendar.getInstance();
+  private static final Calendar calendar = GregorianCalendar.getInstance();
   
   private static Date date(int year, int month, int day) {
     calendar.clear();
