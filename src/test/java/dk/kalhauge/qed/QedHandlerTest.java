@@ -6,7 +6,7 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Test;
-
+// Just testing ...
 
 
 public class QedHandlerTest {
