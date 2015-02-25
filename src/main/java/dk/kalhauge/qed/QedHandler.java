@@ -26,7 +26,7 @@ public class QedHandler extends HttpHandlerAdapter {
     }
   
   private void buildScript(Response response, boolean jQuery) throws IOException {
-    StringBuilder result = new StringBuilder("// version 0.9\n");
+    StringBuilder result = new StringBuilder("// version 0.9.1\n");
     // Class contract = wrapper.getClass();
     if (jQuery) appendResource(result, "/jquery.js");
     appendResource(result, "/qed.js");
