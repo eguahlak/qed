@@ -14,4 +14,10 @@ public class HtmlTest {
     assertThat(p.toString(), is("<p>Hello</p>"));
     }
   
+  @Test
+  public void testHTag() throws Exception {
+    Element p = HtmlBuilder.h(2, "Hello");
+    assertThat(p.toString(), is("<h2>Hello</h2>"));
+    }
+  
   }
