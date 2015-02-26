@@ -20,4 +20,10 @@ public class HtmlTest {
     assertThat(p.toString(), is("<h2>Hello</h2>"));
     }
   
+  @Test
+  public void testCellTag() throws Exception {
+    Element p = HtmlBuilder.cell("Hello");
+    assertThat(p.toString(), is("<td>Hello</td>"));
+    }
+  
   }
